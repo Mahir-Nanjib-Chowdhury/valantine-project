@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favico.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Will You ?</title>
+</head>
+<style>
+    .center{
+        position: absolute;
+        top:  50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+</style>
+<body>
+    <div id="beforeYes" class="center container mx-auto text-center my-5">
+        <!-- GIF -->
+        <img src="propose_bubu.gif" class="mx-auto h-60" alt="DUDU proposes BUBU" />
+        <!-- Text -->
+       <div class="mx-5">
+         <!-- Caption -->
+         <div class="text-2xl font-extrabold text-purple-700 leading-9 tracking-wider">Will You Be My Valentine BUBU ?</div>
+         <!-- Option -->
+         <div class="flex justify-center mt-10 w-[95%]">
+             <p id="yesID" class="chooseOption rounded-lg mx-5 bg-green-500 hover:bg-green-800 text-white cursor-pointer flex items-center text-center select-none font-bold">YES</p>
+             <p id="noID" class="chooseOption rounded-lg mx-5 bg-red-600 hover:bg-red-800 text-white cursor-pointer flex items-center text-center select-none font-bold"></p>
+         </div>
+       </div>
+    </div>
+    <div id="afterYes" class="center container mx-auto text-center hidden my-5">
+        <!-- GIF -->
+        <div id="afterYesImages">
+            <img src="happy0.gif" class="mx-auto h-80 hidden" alt="DUDU proposes BUBU" />
+            <img src="happy1.gif" class="mx-auto h-80 hidden" alt="DUDU proposes BUBU" />
+            <img src="happy2.gif" class="mx-auto h-80 hidden" alt="DUDU proposes BUBU" />
+            <img src="happy3.gif" class="mx-auto h-80 hidden" alt="DUDU proposes BUBU" />
+            <img src="happy4.gif" class="mx-auto h-80 hidden" alt="DUDU proposes BUBU" />
+            <img src="happy5.gif" class="mx-auto h-80 hidden" alt="DUDU proposes BUBU" />
+        </div>
+        <!-- Text -->
+       <div>
+         <!-- Caption -->
+         <div class="text-2xl font-extrabold text-purple-700 leading-9 tracking-wider">YAYYYYYY</div>
+       </div>
+    </div>
+    <footer class="absolute bottom-5 right-5 text-blue-700 mt-10">
+        Designed by <a class="font-bold italic" href="https://www.facebook.com/Moheb619">MOHEB</a>
+    </footer>
+    <script>
+       var noTextList = ["NO","Are you sure?","No second thoughts?","Any reconsideration?","No chance?","Still a no?","No possibility?","Absolutely final?","একটু শুনো না 😔","Yes বলো না প্লিজ 🥺"];
+       var yesPadding=40 , noPadding = 40;
+
+       var yesID = "p-["+yesPadding+"px]";
+       var noID = "p-["+noPadding+"px]";
+
+       $( "#yesID" ).addClass( yesID );
+       $( "#noID" ).addClass( noID );
+
+       var noTextListIndex = 0;
+       $("#noID").text(noTextList[noTextListIndex]);
+
+       var sadIndex = -1;
+
+       $("#noID").click(function(){
+            $( "#yesID" ).removeClass( yesID );
+            $( "#noID" ).removeClass( noID );
+            yesPadding+=5;
+            noPadding-=5;
+            yesID = "p-["+yesPadding+"px]";
+            noID = "p-["+noPadding+"px]";
+            $("#noID").text(noTextList[++noTextListIndex]);
+            $( "#yesID" ).addClass( yesID );
+            $( "#noID" ).addClass( noID );
+            if(sadIndex<8){
+                sadIndex++;
+            }
+            let imgSrc = `sad${sadIndex}.gif`;
+            $("#beforeYes img").attr("src",imgSrc);
+        });
+
+       var yesIndex=0;
+       var elements = $('#afterYes img');
+
+       function showImagesWithDelay(index) {
+
+        if (index < 6) {
+            // Show the current element
+            $(elements[index]).fadeIn(2500, function() {
+                // Call the function recursively for the next element
+                yesIndex++;
+                showImagesWithDelay(yesIndex + 1);
+            });
+        }
+        if(index==0){
+
+            $(elements[index]).fadeOut(1);
+        }
+        else{
+            if(index-1 <5 ){
+            
+                $(elements[index - 1]).fadeOut(1);
+            }
+                
+        }
+        }
+
+       $("#yesID").click(function(){
+            $( "#beforeYes" ).addClass( "hidden" );
+            $( "#afterYes" ).removeClass( "hidden" );
+            showImagesWithDelay(yesIndex);
+        });
+
+
+    </script>
+</body>
+</html>
+
